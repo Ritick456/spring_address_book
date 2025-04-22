@@ -2,6 +2,8 @@ package com.bridgelabz.addressbook.controller;
 
 import com.bridgelabz.addressbook.dto.AddressBook;
 import com.bridgelabz.addressbook.entity.Address;
+import com.bridgelabz.addressbook.service.AddressService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -11,6 +13,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/address")
 public class AddressController {
+
+    @Autowired
+    AddressService addressService;
 
 
         @GetMapping("/dto")
@@ -25,6 +30,15 @@ public class AddressController {
             return a;
 
         }
+
+    @GetMapping("/service")
+    public Address serviceController(@RequestBody AddressBook book){
+
+            Address add = addressService.getAddress(book);
+
+            return add;
+
+    }
         @GetMapping
         public Map<String , String> getAddress(){
             Map<String , String> response = new HashMap<>();
