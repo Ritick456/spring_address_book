@@ -12,9 +12,10 @@ public class AddressbookApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(AddressbookApplication.class, args);
+//		SpringApplication.run(AddressbookApplication.class, args);
 		ApplicationContext Context = SpringApplication.run(AddressbookApplication.class, args);
 		log.info("AddressBook app is started in {} Environment", Context.getEnvironment().getProperty("environment"));
+
 	}
 
 }
