@@ -3,6 +3,7 @@ package com.bridgelabz.addressbook.controller;
 import com.bridgelabz.addressbook.dto.AddressBook;
 import com.bridgelabz.addressbook.entity.Address;
 import com.bridgelabz.addressbook.service.AddressService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,64 +11,48 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@Slf4j
 @RestController
 @RequestMapping("/address")
 public class AddressController {
 
     @Autowired
     AddressService addressService;
-
+    
+        @GetMapping
+        public Map<String , String> getAddress(){
+            log.trace("Checking request");
+            Map<String , String> response = new HashMap<>();
+            response.put("Message" , "get request");
+            return  response;
+        }
 
         @PostMapping("/create")
         public Address createAddress(@RequestBody  AddressBook address){
-
+            log.trace("Creating new Adress");
             Address add  = addressService.createAddress(address);
-
             return add;
         }
 
         @GetMapping("/all")
         public List<Address> getAllAddress(){
+            log.trace("Fetching all contacts");
             List<Address> list = addressService.getAllAddress();
             return list;
         }
 
         @GetMapping("/{id}")
         public Address getAddressById(@PathVariable int id){
-
+            log.trace("Fetching contacts by id");
             Address add = addressService.getAddressById(id);
             return add;
         }
 
 
-        @GetMapping("/dto")
-        public Address dtoController(@RequestBody AddressBook book){
-            Address a = new Address();
-            a.setCity(book.getCity());
-            a.setId(book.getId());
-            a.setName(book.getName());
-            a.setEmail(book.getEmail());
-            return a;
-        }
-
-        @GetMapping("/service")
-        public Address serviceController(@RequestBody AddressBook book){
-
-                Address add = addressService.getAddress(book);
-
-                return add;
-
-        }
-        @GetMapping
-        public Map<String , String> getAddress(){
-            Map<String , String> response = new HashMap<>();
-            response.put("Message" , "get request");
-            return  response;
-        }
 
         @PostMapping
         public Map<String , String> postAddress(){
+            log.trace("Checking post request");
             Map<String , String> response = new HashMap<>();
             response.put("Message" , "get request");
             return  response;
@@ -75,7 +60,7 @@ public class AddressController {
 
         @PutMapping("/{id}")
         public Address updateAddress(@PathVariable int id, @RequestBody AddressBook request){
-
+            log.trace("updating Address By id");
             System.out.println("kshfkahfk");
             Address add = addressService.update(id , request);
 
@@ -86,6 +71,7 @@ public class AddressController {
 
         @PutMapping
         public Map<String , String> putAddress(){
+            log.trace("Updating Adress");
             Map<String , String> response = new HashMap<>();
             response.put("Message" , "get request");
             return  response;
@@ -93,7 +79,7 @@ public class AddressController {
 
         @DeleteMapping("/delete/{id}")
         public void deleteAddress(@PathVariable int id){
-
+            log.trace("Deleting Adress");
             try{
                 addressService.deleteAddress(id);
             }
@@ -103,6 +89,7 @@ public class AddressController {
         }
         @DeleteMapping
         public Map<String , String> deleteAddress(){
+            log.trace("Checking Delete request");
             Map<String , String> response = new HashMap<>();
             response.put("Message" , "get request");
             return  response;
