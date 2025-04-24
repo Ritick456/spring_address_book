@@ -2,7 +2,9 @@ package com.bridgelabz.addressbook.controller;
 
 import com.bridgelabz.addressbook.dto.AddressBook;
 import com.bridgelabz.addressbook.entity.Address;
+import com.bridgelabz.addressbook.exception.AddressException;
 import com.bridgelabz.addressbook.service.AddressService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -28,7 +31,7 @@ public class AddressController {
         }
 
         @PostMapping("/create")
-        public Address createAddress(@RequestBody  AddressBook address){
+        public Address createAddress(@Valid  @RequestBody  AddressBook address){
             log.trace("Creating new Adress");
             Address add  = addressService.createAddress(address);
             return add;
@@ -42,10 +45,10 @@ public class AddressController {
         }
 
         @GetMapping("/{id}")
-        public Address getAddressById(@PathVariable int id){
+        public Address getAddressById(@PathVariable int id) throws AddressException {
             log.trace("Fetching contacts by id");
-            Address add = addressService.getAddressById(id);
-            return add;
+            Optional<Address> add = addressService.getAddressById(id);
+            return add.get();
         }
 
 

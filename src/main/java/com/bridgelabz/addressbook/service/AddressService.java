@@ -48,13 +48,19 @@ public class AddressService {
         return  addressRepository.findAll();
     }
 
-    public  Address getAddressById(int id){
+    public Optional<Address> getAddressById(int id) {
 
-        Optional<Address> add = addressRepository.findById(id);
+//        if(!addressRepository.existsById(id)){
+//            throw new AddressException("Id galt hai");
+//        }
+//
+//        Optional<Address> add = addressRepository.findById(id);
+//
+//        return add.get();
+                //.orElseThrow(() -> new AddressException("Hello jii not found"));
 
-        Address addres = new Address();
-        addres = add.get();
-        return addres;
+        return addressRepository.findById(id);
+                //orElseThrow(() -> new AddressException("Address not found with ID: " + id));
 
     }
 
@@ -73,10 +79,7 @@ public class AddressService {
             addressRepository.save(addres);
             return addres;
         }
-
-
         return null;
-
     }
 
     public void deleteAddress(int id){
