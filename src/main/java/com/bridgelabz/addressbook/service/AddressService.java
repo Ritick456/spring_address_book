@@ -2,6 +2,7 @@ package com.bridgelabz.addressbook.service;
 
 import com.bridgelabz.addressbook.dto.AddressBook;
 import com.bridgelabz.addressbook.entity.Address;
+import com.bridgelabz.addressbook.exception.AddressException;
 import com.bridgelabz.addressbook.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,18 +49,18 @@ public class AddressService {
         return  addressRepository.findAll();
     }
 
-    public Optional<Address> getAddressById(int id) {
+    public Address getAddressById(int id) {
 
-//        if(!addressRepository.existsById(id)){
-//            throw new AddressException("Id galt hai");
-//        }
-//
-//        Optional<Address> add = addressRepository.findById(id);
-//
-//        return add.get();
+        if(!addressRepository.existsById(id)){
+            throw new AddressException("Id galt hai");
+        }
+
+        Optional<Address> add = addressRepository.findById(id);
+
+        return add.get();
                 //.orElseThrow(() -> new AddressException("Hello jii not found"));
 
-        return addressRepository.findById(id);
+        //return addressRepository.findById(id);
                 //orElseThrow(() -> new AddressException("Address not found with ID: " + id));
 
     }

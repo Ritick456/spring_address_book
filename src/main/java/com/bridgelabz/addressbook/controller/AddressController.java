@@ -45,10 +45,10 @@ public class AddressController {
         }
 
         @GetMapping("/{id}")
-        public Address getAddressById(@PathVariable int id) throws AddressException {
+        public Address getAddressById(@PathVariable int id) {
             log.trace("Fetching contacts by id");
-            Optional<Address> add = addressService.getAddressById(id);
-            return add.get();
+            Address add = addressService.getAddressById(id);
+            return add;
         }
 
 

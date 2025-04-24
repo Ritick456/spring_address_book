@@ -24,10 +24,10 @@ public class GlobalExceptionHandler {
     }
 
     // Handle AddressBookException
-//    @ExceptionHandler(AddressException.class)
-//    public ResponseEntity<String> handleAddressBookException(AddressException ex) {
-//
-//        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
-//    }
+    @ExceptionHandler(AddressException.class)
+    public ResponseEntity<String> handleAddressBookException(AddressException ex) {
+
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
 
 }
